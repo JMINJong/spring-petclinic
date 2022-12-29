@@ -1,0 +1,9 @@
+app:
+  name: petclinic-k8s
+  profile:
+  replicaCount: 1
+  hostAliases: []
+  image: scratch.kr-central-1.kcr.dev/test-img:latest
+  resources: {}
+  service:
+    type: LoadBalancer

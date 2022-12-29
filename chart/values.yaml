@@ -3,7 +3,7 @@ app:
   profile:
   replicaCount: 1
   hostAliases: []
-  image: scratch.kr-central-1.kcr.dev/test-img:latest
+  image: scratch.kr-central-1.kcr.dev/test-cr/test-img:latest
   resources: {}
   service:
     type: LoadBalancer

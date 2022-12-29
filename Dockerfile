@@ -1,13 +1,20 @@
-FROM docker.io/library/eclipse-temurin:17-jdk-jammy
+# Dockerfile
+FROM docker.io/library/gradle:7.5.1-jdk17 AS build
 
 WORKDIR /app
 
-COPY .mvn/ .mvn
-COPY pom.xml ./
-COPY mvnw ./
-RUN sed -i 's/\r$//' mvnw
-RUN ./mvnw dependency:resolve
+# add project
+ADD . /app/
 
-COPY src ./src
+RUN gradle clean bootJar
 
-CMD ["./mvnw", "spring-boot:run"]
+FROM docker.io/library/eclipse-temurin:11-jre-focal AS app
+
+WORKDIR /app
+COPY --from=build /app/build/libs/spring-petclinic-3.0.0.jar .
+
+EXPOSE 8080
+
+# server run
+ENTRYPOINT ["java"]
+CMD ["-jar", "/app/spring-petclinic-3.0.0.jar"]

@@ -31,9 +31,10 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          command: [ "./mvnw" ]
+          command: [ "java" ]
           args:
-            - "spring-boot:run"
+            - "-jar"
+            - "spring-petclinic-3.0.0.jar"
           {{- with .Values.app.env }}
           env:
             {{- toYaml . | nindent 12 }}
